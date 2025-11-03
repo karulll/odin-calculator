@@ -25,8 +25,45 @@ img {
   max-inline-size: 100%;
 }
 
+
 /* custom properties */
 
+@font-face {
+  font-family: "Digital7";
+  src: url("./fonts/digital-7.regular.ttf") format("truetype");
+}
+
+:root {
+	--ff: "Inter", sans-serif;
+    --display-ff: "Digital7", monospace;
+	--transition: 0.12s ease-in-out;
+	--bg-dark: oklch(0.92 0 287);
+	--bg: oklch(0.96 0 287);
+	--bg-light: oklch(1 0 287);
+	--text: oklch(0.15 0 287);
+	--text-muted: oklch(0.4 0 287);
+	--highlight: oklch(1 0 287);
+	--border: oklch(0.6 0 287);
+	--border-muted: oklch(0.7 0 287);
+	--shadow-s: inset 0 1px 2px #ffffff30,
+		/* top highlight */
+		0 1px 2px #00000030,
+		/* dark shadow */
+		0 2px 4px #00000015;
+	/* soft shadow */
+	--shadow-m: inset 0 1px 2px #ffffff50,
+		/* top highlight */
+		0 2px 4px #00000030,
+		/* dark shadow */
+		0 4px 8px #00000015;
+	/* soft shadow */
+	--shadow-l: inset 0 1px 2px #ffffff70,
+		/* top highlight */
+		0 4px 6px #00000030,
+		/* dark shadow */
+		0 6px 10px #00000015;
+	/* soft shadow */
+}
 
 
 /* center page */
@@ -111,3 +148,15 @@ main {
 .btn-8 { grid-area: btn-8; }
 
 .btn-9 { grid-area: btn-9; }
+
+
+/* styling */
+
+.result {
+    font-family: var(--display-ff);
+}
+
+button {
+    cursor: pointer;
+    font-family: var(--ff);
+}
