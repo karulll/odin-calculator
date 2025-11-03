@@ -21,54 +21,69 @@ const btn7 = document.querySelector('.btn-7');
 const btn8 = document.querySelector('.btn-8');
 const btn9 = document.querySelector('.btn-9');
 
-addListener(btnSound);
-addListener(btnNegation);
-addListener(btnAc);
-addListener(btnC);
-addListener(btnDivide);
-addListener(btnMultiply);
-addListener(btnSubtract);
-addListener(btnAdd);
-addListener(btnEquals);
-addListener(btnDecimal);
-addListener(btn0);
-addListener(btn1);
-addListener(btn2);
-addListener(btn3);
-addListener(btn4);
-addListener(btn5);
-addListener(btn6);
-addListener(btn7);
-addListener(btn8);
-addListener(btn9);
+addOtherListener(btnSound);
+addOtherListener(btnNegation);
+addOtherListener(btnAc);
+addOtherListener(btnC);
+addOtherListener(btnEquals);
 
-function addListener(element) {
-    element.addEventListener("click", operate());
-    console.log(element)
+addOperatorListener(btnDivide);
+addOperatorListener(btnMultiply);
+addOperatorListener(btnSubtract);
+addOperatorListener(btnAdd);
+
+addNumberListener(btnDecimal);
+addNumberListener(btn0);
+addNumberListener(btn1);
+addNumberListener(btn2);
+addNumberListener(btn3);
+addNumberListener(btn4);
+addNumberListener(btn5);
+addNumberListener(btn6);
+addNumberListener(btn7);
+addNumberListener(btn8);
+addNumberListener(btn9);
+
+function addNumberListener(element) {
+    element.addEventListener("click", () => operate(element.dataset.value));
+}
+
+function addOperatorListener(element) {
+    element.addEventListener("click", () => operate(element.dataset.value));
+}
+
+function addOtherListener(element) {
+    element.addEventListener("click", () => operate(element.dataset.value));
 }
 
 let number = {
-    one : 0,
+    one: 0,
     two: 0,
-    operator: ""
+    result: 0
 };
 
-function operate() {
+function add() { number.result = Number(number.one + number.two); }
+function subtract() { number.result = Number(number.one - number.two); }
+function multiply() { number.result = Number(number.one * number.two); }
+function divide() { number.result = Number(number.one / number.two); }
 
-}
-
-function add(numOne, numTwo) {
-    return numOne + numTwo;
-}
-
-function subtract(numOne, numTwo) {
-    return numOne - numTwo;
-}
-
-function multiply(numOne, numTwo) {
-    return numOne * numTwo;
-}
-
-function divide(numOne, numTwo) {
-    return numOne / numTwo;
+function operate(input) {
+    switch(input) {
+        case "/":
+            divide();
+            console.log(number.result);
+            break;
+        case "*":
+            multiply();
+            console.log(number.result);
+            break;
+        case "-":   
+            subtract();
+            console.log(number.result);
+            break;
+        case "+":
+            add();
+            console.log(number.result);
+            break;
+    }
 }
