@@ -44,7 +44,7 @@ addListener(btn8);
 addListener(btn9);
 
 function addListener(element) {
-    element.addEventListener("click", () => operate(element.dataset.value));
+    element.addEventListener("click", () => populateDisplay(element.dataset.value));
 }
 
 let number = {
@@ -53,11 +53,15 @@ let number = {
     currentDisplay: ''
 };
 
-function operate(value) {
+function populateDisplay(value) {
     number.currentDisplay += value;
     calcDisplay.textContent = number.currentDisplay;
 
     console.log(typeof number.currentDisplay, number.currentDisplay);
+}
+
+function operate() {
+
 }
 
 function add(numOne, numTwo) {
