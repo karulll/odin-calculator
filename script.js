@@ -48,8 +48,6 @@ function addListener(element) {
 }
 
 let number = {
-    one : 0,
-    two: 0,
     currentDisplay: ''
 };
 
@@ -60,8 +58,21 @@ function populateDisplay(value) {
     console.log(typeof number.currentDisplay, number.currentDisplay);
 }
 
-function operate() {
-
+function operate(numOne, numTwo, operator) {
+    switch (operator) {
+        case "+":
+            add(numOne, numTwo);
+            break;
+        case "-":
+            subtract(numOne, numTwo);
+            break;
+        case "*":
+            multiply(numOne, numTwo);
+            break;
+        case "/":
+            divide(numOne, numTwo);
+            break;
+    }
 }
 
 function add(numOne, numTwo) {
