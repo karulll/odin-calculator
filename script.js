@@ -50,14 +50,35 @@ function addListener(element) {
 }
   
 let number = {
+  one: 0,
+  two: 0,
+  operator: "",
   currentDisplay: "",
+  operationDisplay: "",
 };
 
 function populateDisplay(value) {
-  number.currentDisplay += value;
-  calcDisplay.textContent = number.currentDisplay;
+  // if value is a number or '.'
+  // populate number.one & current display with the inputted value
+  if(valueIsNumeric(value) || value == '.') {
+    number.currentDisplay += value;
+    number.one = parseFloat(number.currentDisplay);
+    console.log(number.currentDisplay);
 
-  console.log(typeof number.currentDisplay, number.currentDisplay);
+    updateCalcTextDisplay();
+  }
+}
+
+function updateCalcTextDisplay() {
+  calcDisplay.textContent = number.currentDisplay;
+}
+
+function updateOperationTextDisplay() {
+  operationDisplay.textContent = number.currentDisplay + number.operator
+}
+
+function valueIsNumeric(value) {
+  return !Number.isNaN(Number(value));
 }
 
 function operate(numOne, numTwo, operator) {
