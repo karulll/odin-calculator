@@ -22,15 +22,15 @@ const btn7 = document.querySelector(".btn-7");
 const btn8 = document.querySelector(".btn-8");
 const btn9 = document.querySelector(".btn-9");
 
-addListener(btnSound);
-addListener(btnNegation);
-addListener(btnAc);
-addListener(btnC);
-addListener(btnDivide);
-addListener(btnMultiply);
-addListener(btnSubtract);
-addListener(btnAdd);
-addListener(btnEquals);
+addOperatorListener(btnSound);
+addOperatorListener(btnNegation);
+addOperatorListener(btnAc);
+addOperatorListener(btnC);
+addOperatorListener(btnDivide);
+addOperatorListener(btnMultiply);
+addOperatorListener(btnSubtract);
+addOperatorListener(btnAdd);
+addOperatorListener(btnEquals);
 addListener(btnDecimal);
 addListener(btn0);
 addListener(btn1);
@@ -48,7 +48,15 @@ function addListener(element) {
     populateDisplay(element.dataset.value)
   );
 }
-  
+
+function addOperatorListener(element) {
+  element.addEventListener("click", () =>
+    operate(element.dataset.value)
+  );
+}
+
+// calc logic
+
 let number = {
   one: 0,
   two: 0,
@@ -58,27 +66,9 @@ let number = {
 };
 
 function populateDisplay(value) {
-  // if value is a number or '.'
-  // populate number.one & current display with the inputted value
-  if(valueIsNumeric(value) || value == '.') {
-    number.currentDisplay += value;
-    number.one = parseFloat(number.currentDisplay);
-    console.log(number.currentDisplay);
-
-    updateCalcTextDisplay();
-  }
-}
-
-function updateCalcTextDisplay() {
-  calcDisplay.textContent = number.currentDisplay;
-}
-
-function updateOperationTextDisplay() {
-  operationDisplay.textContent = number.currentDisplay + number.operator
-}
-
-function valueIsNumeric(value) {
-  return !Number.isNaN(Number(value));
+  number.currentDisplay += value;
+  number.one = parseFloat(number.currentDisplay);
+  updateCalcTextDisplay();
 }
 
 function operate(numOne, numTwo, operator) {
@@ -98,6 +88,8 @@ function operate(numOne, numTwo, operator) {
   }
 }
 
+// helpers
+
 function add(numOne, numTwo) {
   return numOne + numTwo;
 }
@@ -112,4 +104,16 @@ function multiply(numOne, numTwo) {
 
 function divide(numOne, numTwo) {
   return numOne / numTwo;
+}
+
+function updateCalcTextDisplay() {
+  calcDisplay.textContent = number.currentDisplay;
+}
+
+function updateOperationTextDisplay() {
+  operationDisplay.textContent = number.currentDisplay + number.operator;
+}
+
+function valueIsNumeric(value) {
+  return !Number.isNaN(Number(value));
 }
