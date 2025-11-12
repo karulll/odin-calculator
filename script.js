@@ -50,49 +50,55 @@ function addListener(element) {
 }
 
 function addOperatorListener(element) {
-  element.addEventListener("click", () =>
-    operate(element.dataset.value)
-  );
+  element.addEventListener("click", () => operate(element.dataset.value));
 }
 
-// calc logic: 
+// calc logic:
 
 let number = {
   one: 0,
   two: 0,
   operator: "",
   flag: 1,
+  currentValue: "",
   currentDisplay: "",
   operationDisplay: "",
 };
 
 // if flag = 1 populate num one, flag = 2 populate num two
 function populateDisplay(value) {
-  if(number.flag == 1) {
+  if (number.flag == 1) {
+    number.currentValue = value;
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   } else if (number.flag == 2) {
+    number.currentValue = value;
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   }
 }
 
+// if current value is a number, run ->
+// change current value to the sent value to prevent operator spamming
+// add something to update flag before running calculations (wip)
 function operate(operator) {
-  switch (operator) {
-    case "+":
-      console.log(add());
-      break;
-    case "-":
-      subtract();
-      break;
-    case "*":
-      multiply();
-      break;
-    case "/":
-      divide();
-      break;
+  if (valueIsNumeric(number.currentValue)) {
+    switch (operator) {
+      case "+":
+        add();
+        break;
+      case "-":
+        subtract();
+        break;
+      case "*":
+        multiply();
+        break;
+      case "/":
+        divide();
+        break;
+    }
   }
 }
 
