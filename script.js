@@ -55,59 +55,67 @@ function addOperatorListener(element) {
   );
 }
 
-// calc logic
+// calc logic: 
 
 let number = {
   one: 0,
   two: 0,
   operator: "",
+  flag: 1,
   currentDisplay: "",
   operationDisplay: "",
 };
 
+// if flag = 1 populate num one, flag = 2 populate num two
 function populateDisplay(value) {
-  number.currentDisplay += value;
-  number.one = parseFloat(number.currentDisplay);
-  updateCalcTextDisplay();
+  if(number.flag == 1) {
+    number.currentDisplay += value;
+    number.one = parseFloat(number.currentDisplay);
+    updateCalcTextDisplay(number.currentDisplay);
+  } else if (number.flag == 2) {
+    number.currentDisplay += value;
+    number.two = parseFloat(number.currentDisplay);
+    updateCalcTextDisplay(number.currentDisplay);
+  }
 }
 
-function operate(numOne, numTwo, operator) {
+function operate(operator) {
   switch (operator) {
     case "+":
-      add(numOne, numTwo);
+      console.log(add());
       break;
     case "-":
-      subtract(numOne, numTwo);
+      subtract();
       break;
     case "*":
-      multiply(numOne, numTwo);
+      multiply();
       break;
     case "/":
-      divide(numOne, numTwo);
+      divide();
       break;
   }
 }
 
 // helpers
 
-function add(numOne, numTwo) {
-  return numOne + numTwo;
+function add() {
+  return number.one + number.two;
 }
 
-function subtract(numOne, numTwo) {
-  return numOne - numTwo;
+function subtract() {
+  return number.one - number.two;
 }
 
-function multiply(numOne, numTwo) {
-  return numOne * numTwo;
+function multiply() {
+  return number.one * number.two;
 }
 
-function divide(numOne, numTwo) {
-  return numOne / numTwo;
+function divide() {
+  return number.one / number.two;
 }
 
-function updateCalcTextDisplay() {
-  calcDisplay.textContent = number.currentDisplay;
+function updateCalcTextDisplay(number) {
+  calcDisplay.textContent = number;
 }
 
 function updateOperationTextDisplay() {
