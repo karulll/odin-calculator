@@ -68,10 +68,10 @@ let number = {
 // populate html display and number objects based on current flag
 // if theres already a decimal present, dont store value
 function populateDisplay(value) {
-  if (value == "." && isDecimalPresent()){
+  if (value == "." && isDecimalPresent()) {
     return;
   }
-  
+
   if (number.flag == 1) {
     number.currentValue = value;
     number.currentDisplay += value;
@@ -91,21 +91,26 @@ function populateDisplay(value) {
 function operate(operator) {
   if (valueIsNumeric(number.currentValue)) {
     number.currentValue = operator;
-    
+
     switch (operator) {
       case "+":
+        number.currentDisplay += ` ${operator} `;
         add();
         break;
       case "-":
+        number.currentDisplay += ` ${operator} `;
         subtract();
         break;
       case "*":
+        number.currentDisplay += ` ${operator} `;
         multiply();
         break;
       case "/":
+        number.currentDisplay += ` ${operator} `;
         divide();
         break;
     }
+    updateCalcTextDisplay(number.currentDisplay);
   }
 }
 
