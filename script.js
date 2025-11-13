@@ -65,8 +65,13 @@ let number = {
   operationDisplay: "",
 };
 
-// if flag = 1 populate num one, flag = 2 populate num two
+// populate html display and number objects based on current flag
+// if theres already a decimal present, dont store value
 function populateDisplay(value) {
+  if (value == "." && isDecimalPresent()){
+    return;
+  }
+  
   if (number.flag == 1) {
     number.currentValue = value;
     number.currentDisplay += value;
@@ -80,11 +85,13 @@ function populateDisplay(value) {
   }
 }
 
-// if current value is a number, run ->
+// if number.currentValue is a number, run -> this prevents spamming non numerics to change flag
 // change current value to the sent value to prevent operator spamming
 // add something to update flag before running calculations (wip)
 function operate(operator) {
   if (valueIsNumeric(number.currentValue)) {
+    number.currentValue = operator;
+    
     switch (operator) {
       case "+":
         add();
@@ -128,6 +135,15 @@ function updateOperationTextDisplay() {
   operationDisplay.textContent = number.currentDisplay + number.operator;
 }
 
+function clearCalcTextDisplay() {
+  calcDisplay.textContent = "0";
+  number.currentDisplay = "";
+}
+
 function valueIsNumeric(value) {
   return !Number.isNaN(Number(value));
+}
+
+function isDecimalPresent() {
+  return number.currentDisplay.includes(".");
 }
