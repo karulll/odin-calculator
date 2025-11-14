@@ -22,6 +22,20 @@ const btn7 = document.querySelector(".btn-7");
 const btn8 = document.querySelector(".btn-8");
 const btn9 = document.querySelector(".btn-9");
 
+/* -------------------------------------------------------------- */
+
+let number = {
+  one: 0,
+  two: 0,
+  flag: 1,
+  currentOperator: "",
+  currentValue: "",
+  currentDisplay: "",
+  operationDisplay: "",
+};
+
+/* -------------------------------------------------------------- */
+
 addClearListener(btnAc);
 addClearListener(btnC);
 addOperatorListener(btnSound);
@@ -43,31 +57,13 @@ addListener(btn7);
 addListener(btn8);
 addListener(btn9);
 
+/* -------------------------------------------------------------- */
+
 function addListener(element) {
   element.addEventListener("click", () =>
     populateDisplay(element.dataset.value)
   );
 }
-
-function addOperatorListener(element) {
-  element.addEventListener("click", () => operate(element.dataset.value));
-}
-
-function addClearListener(element) {
-  element.addEventListener("click", () => clearButtons(element.dataset.value));
-}
-
-// calc logic:
-
-let number = {
-  one: 0,
-  two: 0,
-  flag: 1,
-  currentOperator: "",
-  currentValue: "",
-  currentDisplay: "",
-  operationDisplay: "",
-};
 
 // populate html display and number objects based on current flag
 // if theres already a decimal present, dont store value
@@ -87,6 +83,12 @@ function populateDisplay(value) {
     number.two = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   }
+}
+
+/* -------------------------------------------------------------- */
+
+function addOperatorListener(element) {
+  element.addEventListener("click", () => operate(element.dataset.value));
 }
 
 // Handle operator button clicks: validate the most recent input, set/record the selected operator,
@@ -132,6 +134,30 @@ function operate(operator) {
   }
   console.log(number.flag);
 }
+
+/* -------------------------------------------------------------- */
+
+function addClearListener(element) {
+  element.addEventListener("click", () => clearButtons(element.dataset.value));
+}
+
+function clearButtons(value) {
+  switch (value) {
+    case "ac":
+      resetCalc();
+      break;
+    case "ce":
+      clearCalcTextDisplay();
+      if (number.flag == 1) {
+        number.one = 0;
+      } else {
+        number.two = 0;
+      }
+      break;
+  }
+}
+
+/* -------------------------------------------------------------- */
 
 // helpers
 
@@ -204,22 +230,6 @@ function setFlag() {
   } else if (number.flag == 2) {
     number.flag = 1;
     equals();
-  }
-}
-
-function clearButtons(value) {
-  switch (value) {
-    case "ac":
-      resetCalc();
-      break;
-    case "ce":
-      clearCalcTextDisplay();
-      if(number.flag == 1){
-        number.one = 0;
-      } else {
-        number.two = 0;
-      }
-      break;
   }
 }
 
