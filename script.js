@@ -75,18 +75,16 @@ function populateDisplay(value) {
   }
 
   if (number.flag == 1) {
-    number.currentValue = value;
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   } else if (number.flag == 2) {
-    number.currentValue = value;
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   }
 
-  logValues();
+    logValues();
 }
 
 /* -------------------------------------------------------------- */
@@ -99,30 +97,43 @@ function addOperatorListener(element) {
 // perform the pending calculation for the current operator (if any), and update the operation display.
 function operate(operator) {
   updateOperationTextDisplay(operator);
-  if (valueIsNumeric(number.currentValue)) {
-    number.currentValue = operator;
 
-    if (number.flag == 2) {
-      switch (number.workingOperator) {
-        case "+":
-          add();
-          break;
-        case "-":
-          subtract();
-          break;
-        case "*":
-          multiply();
-          break;
-        case "/":
-          divide();
-          break;
-      }
-      setFlag();
-    } else {
-      setFlag();
-      clearCalcTextDisplay();
+  number.currentValue = operator;
+  if(number.two == 0) {
+    number.workingOperator = operator;
+    clearCalcTextDisplay();
+  } else {
+    equals(operator);
+  }
+  number.flag = 2;
+  logValues();
+}
+
+/* -------------------------------------------------------------- */
+
+function addEqualsListener(element) {
+  element.addEventListener("click", () => equals());
+}
+
+function equals() {
+  if (number.two != 0) {
+    switch (number.workingOperator) {
+      case "+":
+        updateResultValues(add());
+        break;
+      case "-":
+        updateResultValues(subtract());
+        break;
+      case "*":
+        updateResultValues(multiply());
+        break;
+      case "/":
+        divide();
+        updateResultValues(divide());
+        break;
     }
   }
+
   logValues();
 }
 
@@ -152,53 +163,22 @@ function clearButtons(value) {
 
 /* -------------------------------------------------------------- */
 
-function addEqualsListener (element) {
-  element.addEventListener("click", () => equals());
-}
-
-function equals() {
-  if(valueIsNumeric(number.currentValue)){
-    setFlag();
-  }
-
-  switch (number.workingOperator) {
-    case "+":
-      add();
-      break;
-    case "-":
-      subtract();
-      break;
-    case "*":
-      multiply();
-      break;
-    case "/":
-      divide();
-      break;
-  }
-  logValues();
-}
-
-/* -------------------------------------------------------------- */
 // helpers
 
 function add() {
-  const res = number.one + number.two;
-  updateResultValues(res);
+  return (res = number.one + number.two);
 }
 
 function subtract() {
-  const res = number.one - number.two;
-  updateResultValues(res);
+  return (res = number.one - number.two);
 }
 
 function multiply() {
-  const res = number.one * number.two;
-  updateResultValues(res);
+  return (res = number.one * number.two);
 }
 
 function divide() {
-  const res = number.one / number.two;
-  updateResultValues(res);
+  return (res = number.one / number.two);
 }
 
 function updateResultValues(res) {
@@ -210,6 +190,15 @@ function updateResultValues(res) {
     number.one + ` ${number.workingOperator} ` + number.two + " =";
   
   number.one = res;
+  number.two = 0;
+  number.flag = 1;
+
+  if (number.currentValue != number.workingOperator) {
+    number.workingOperator = number.currentValue;
+    number.flag = 2;
+    updateOperationTextDisplay(number.workingOperator);
+    clearCalcTextDisplay();
+  }
   logValues();
 }
 
@@ -219,7 +208,6 @@ function updateCalcTextDisplay(number) {
 
 function updateOperationTextDisplay(operator) {
   operationDisplay.textContent = number.one + ` ${operator}`;
-    number.workingOperator = operator;
 }
 
 function clearCalcTextDisplay() {
@@ -236,18 +224,7 @@ function valueIsNumeric(value) {
 }
 
 function isDecimalPresent() {
-  return number.currentDisplay.includes(".");
-}
-
-function setFlag() {
-  switch(number.flag) {
-    case 1:
-        number.flag = 2;
-      break;
-    case 2:
-        number.flag = 1;
-      break;
-  }
+  return String(number.currentDisplay).includes(".");
 }
 
 function resetCalc() {
