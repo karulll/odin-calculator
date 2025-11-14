@@ -83,6 +83,8 @@ function populateDisplay(value) {
     number.two = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   }
+
+  logValues();
 }
 
 /* -------------------------------------------------------------- */
@@ -107,23 +109,22 @@ function operate(operator) {
     // Append the chosen operator to the operation display state and refresh the display
     number.operationDisplay += ` ${operator} `;
     updateOperationTextDisplay(operator);
-    console.log(number.flag);
 
     // Execute the calculation corresponding to the incoming operator
     // (these functions operate on number.one and number.two)
     if (number.flag == 2) {
       switch (number.currentOperator) {
         case "+":
-          number.one = add();
+          add();
           break;
         case "-":
-          number.one = subtract();
+          subtract();
           break;
         case "*":
-          number.one = multiply();
+          multiply();
           break;
         case "/":
-          number.one = divide();
+          divide();
           break;
       }
       setFlag();
@@ -132,7 +133,7 @@ function operate(operator) {
       clearCalcTextDisplay();
     }
   }
-  console.log(number.flag);
+  logValues();
 }
 
 /* -------------------------------------------------------------- */
@@ -155,6 +156,8 @@ function clearButtons(value) {
       }
       break;
   }
+
+  logValues();
 }
 
 /* -------------------------------------------------------------- */
@@ -163,26 +166,32 @@ function clearButtons(value) {
 
 function add() {
   const result = number.one + number.two;
-  console.log(result);
-  return result;
+  console.log("result:", result);
+  updateCalcTextDisplay(result);
+  operationDisplay.textContent = result;
+  operationDisplay.textContent = number.one + ` ${number.currentOperator} ` + number.two + ` = ${result}`;
 }
 
 function subtract() {
   const result = number.one - number.two;
-  console.log(result);
-  return result;
+  console.log("result:", result);
+  updateCalcTextDisplay(result);
+  operationDisplay.textContent = number.one + ` ${number.currentOperator} ` + number.two + ` = ${result}`;
 }
 
 function multiply() {
   const result = number.one * number.two;
-  console.log(result);
-  return result;
+  console.log("result:", result);
+  updateCalcTextDisplay(result);
+  operationDisplay.textContent = number.one + ` ${number.currentOperator} ` + number.two + ` = ${result}`;
 }
 
 function divide() {
   const result = number.one / number.two;
-  console.log(result);
-  return result;
+  console.log("result:", result);
+  updateCalcTextDisplay(result);
+  operationDisplay.textContent = number.one + ` ${number.currentOperator} ` + number.two + ` = ${result}`;
+
 }
 
 function equals() {
@@ -206,14 +215,18 @@ function updateCalcTextDisplay(number) {
   calcDisplay.textContent = number;
 }
 
-function updateOperationTextDisplay(operator) {
-  operationDisplay.textContent =
-    number.currentDisplay + number.operationDisplay;
+function updateOperationTextDisplay() {
+  number.operationDisplay = number.currentDisplay + number.operationDisplay
+  operationDisplay.textContent = number.operationDisplay;
 }
 
 function clearCalcTextDisplay() {
   calcDisplay.textContent = "0";
   number.currentDisplay = "";
+}
+
+function clearOperationTextDisplay() {
+  operationDisplay.textContent = "";
 }
 
 function valueIsNumeric(value) {
@@ -243,4 +256,12 @@ function resetCalc() {
   number.operationDisplay = "";
   calcDisplay.textContent = "0";
   operationDisplay.textContent = "";
+}
+
+function logValues() {
+  console.log("--------");
+  console.log("flag: ", number.flag);
+  console.log("one: ", number.one);
+  console.log("two: ", number.two);
+  console.log("operator: ", number.currentOperator);
 }
