@@ -1,5 +1,5 @@
 const calcDisplay = document.querySelector(".result");
-const operationDisplay = document.querySelector(".result");
+const operationDisplay = document.querySelector(".operator");
 
 const btnSound = document.querySelector(".btn-sound");
 const btnNegation = document.querySelector(".btn-negation");
@@ -22,10 +22,10 @@ const btn7 = document.querySelector(".btn-7");
 const btn8 = document.querySelector(".btn-8");
 const btn9 = document.querySelector(".btn-9");
 
+addClearListener(btnAc);
+addClearListener(btnC);
 addOperatorListener(btnSound);
 addOperatorListener(btnNegation);
-addOperatorListener(btnAc);
-addOperatorListener(btnC);
 addOperatorListener(btnDivide);
 addOperatorListener(btnMultiply);
 addOperatorListener(btnSubtract);
@@ -53,13 +53,17 @@ function addOperatorListener(element) {
   element.addEventListener("click", () => operate(element.dataset.value));
 }
 
+function addClearListener(element) {
+  element.addEventListener("click", () => clearButtons(element.dataset.value));
+}
+
 // calc logic:
 
 let number = {
   one: 0,
   two: 0,
-  operator: "",
   flag: 1,
+  currentOperator: "",
   currentValue: "",
   currentDisplay: "",
   operationDisplay: "",
@@ -85,59 +89,100 @@ function populateDisplay(value) {
   }
 }
 
-// if number.currentValue is a number, run -> this prevents spamming non numerics to change flag
-// change current value to the sent value to prevent operator spamming
-// add something to update flag before running calculations (wip)
+// Handle operator button clicks: validate the most recent input, set/record the selected operator,
+// perform the pending calculation for the current operator (if any), and update the operation display.
 function operate(operator) {
+  // Only proceed if the last input was numeric (prevents spamming operators)
   if (valueIsNumeric(number.currentValue)) {
+    // Record the operator as the most recent input value to block further operator presses
     number.currentValue = operator;
 
-    switch (operator) {
-      case "+":
-        number.currentDisplay += ` ${operator} `;
-        add();
-        break;
-      case "-":
-        number.currentDisplay += ` ${operator} `;
-        subtract();
-        break;
-      case "*":
-        number.currentDisplay += ` ${operator} `;
-        multiply();
-        break;
-      case "/":
-        number.currentDisplay += ` ${operator} `;
-        divide();
-        break;
+    // Store the currentOperator for later use unless this is the equals operator
+    if (operator != "=") {
+      number.currentOperator = operator;
     }
-    updateCalcTextDisplay(number.currentDisplay);
+
+    // Append the chosen operator to the operation display state and refresh the display
+    number.operationDisplay += ` ${operator} `;
+    updateOperationTextDisplay(operator);
+    console.log(number.flag);
+
+    // Execute the calculation corresponding to the incoming operator
+    // (these functions operate on number.one and number.two)
+    if (number.flag == 2) {
+      switch (number.currentOperator) {
+        case "+":
+          number.one = add();
+          break;
+        case "-":
+          number.one = subtract();
+          break;
+        case "*":
+          number.one = multiply();
+          break;
+        case "/":
+          number.one = divide();
+          break;
+      }
+      setFlag();
+    } else {
+      setFlag();
+      clearCalcTextDisplay();
+    }
   }
+  console.log(number.flag);
 }
 
 // helpers
 
 function add() {
-  return number.one + number.two;
+  const result = number.one + number.two;
+  console.log(result);
+  return result;
 }
 
 function subtract() {
-  return number.one - number.two;
+  const result = number.one - number.two;
+  console.log(result);
+  return result;
 }
 
 function multiply() {
-  return number.one * number.two;
+  const result = number.one * number.two;
+  console.log(result);
+  return result;
 }
 
 function divide() {
-  return number.one / number.two;
+  const result = number.one / number.two;
+  console.log(result);
+  return result;
+}
+
+function equals() {
+  switch (number.currentOperator) {
+    case "+":
+      add();
+      break;
+    case "-":
+      subtract();
+      break;
+    case "*":
+      multiply();
+      break;
+    case "/":
+      divide();
+      break;
+  }
 }
 
 function updateCalcTextDisplay(number) {
   calcDisplay.textContent = number;
 }
 
-function updateOperationTextDisplay() {
-  operationDisplay.textContent = number.currentDisplay + number.operator;
+function updateOperationTextDisplay(operator) {
+  operationDisplay.textContent =
+    number.currentDisplay + number.operationDisplay;
 }
 
 function clearCalcTextDisplay() {
@@ -151,4 +196,41 @@ function valueIsNumeric(value) {
 
 function isDecimalPresent() {
   return number.currentDisplay.includes(".");
+}
+
+function setFlag() {
+  if (number.flag == 1) {
+    number.flag = 2;
+  } else if (number.flag == 2) {
+    number.flag = 1;
+    equals();
+  }
+}
+
+function clearButtons(value) {
+  switch (value) {
+    case "ac":
+      resetCalc();
+      break;
+    case "ce":
+      clearCalcTextDisplay();
+      if(number.flag == 1){
+        number.one = 0;
+      } else {
+        number.two = 0;
+      }
+      break;
+  }
+}
+
+function resetCalc() {
+  number.one = 0;
+  number.two = 0;
+  number.flag = 1;
+  number.currentOperator = "";
+  number.currentValue = "";
+  number.currentDisplay = "";
+  number.operationDisplay = "";
+  calcDisplay.textContent = "0";
+  operationDisplay.textContent = "";
 }
