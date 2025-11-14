@@ -80,7 +80,6 @@ function populateDisplay(value) {
     number.one = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   } else if (number.flag == 2) {
-    number.workingOperator = number.currentValue;
     number.currentValue = value;
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
@@ -99,10 +98,9 @@ function addOperatorListener(element) {
 // Handle operator button clicks: validate the most recent input, set/record the selected operator,
 // perform the pending calculation for the current operator (if any), and update the operation display.
 function operate(operator) {
+  updateOperationTextDisplay(operator);
   if (valueIsNumeric(number.currentValue)) {
     number.currentValue = operator;
-    updateOperationTextDisplay(operator);
-
 
     if (number.flag == 2) {
       switch (number.workingOperator) {
@@ -206,10 +204,12 @@ function divide() {
 function updateResultValues(res) {
   number.result = res;
   number.currentDisplay = res;
+
   updateCalcTextDisplay(number.result);
   operationDisplay.textContent =
-    number.one + ` ${number.workingOperator} ` + number.two + ` = ${number.result}`;
+    number.one + ` ${number.workingOperator} ` + number.two + " =";
   
+  number.one = res;
   logValues();
 }
 
@@ -219,6 +219,7 @@ function updateCalcTextDisplay(number) {
 
 function updateOperationTextDisplay(operator) {
   operationDisplay.textContent = number.one + ` ${operator}`;
+    number.workingOperator = operator;
 }
 
 function clearCalcTextDisplay() {
