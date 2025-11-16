@@ -30,6 +30,7 @@ let number = {
   flag: 1,
   workingOperator: "",
   displayOperator: "",
+  operatorFlag: "false",
   currentValue: "",
   currentDisplay: "",
   operationDisplay: "",
@@ -103,6 +104,7 @@ function operate(operator) {
     number.workingOperator = operator;
     clearCalcTextDisplay();
   } else {
+    number.operatorFlag = "true";
     equals(operator);
   }
   number.flag = 2;
@@ -193,8 +195,9 @@ function updateResultValues(res) {
   number.two = 0;
   number.flag = 1;
 
-  if (number.currentValue != number.workingOperator) {
+  if (number.operatorFlag == "true") {
     number.workingOperator = number.currentValue;
+    number.operatorFlag = "false";
     number.flag = 2;
     updateOperationTextDisplay(number.workingOperator);
     clearCalcTextDisplay();
