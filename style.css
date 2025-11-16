@@ -71,21 +71,10 @@ img {
 /* center page */
 
 html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 /* calculator layout */
@@ -187,6 +176,13 @@ main {
 }
 
 /* styling */
+
+/* 
+  font-size: rem
+  width: % in combination with a max-width; ch for exact text width
+  height: question urself "do i rly need to set height" if yes -> use a min-height
+  padding/margin: rem or em; use em for padding of buttons to adjust to rem font size
+*/
 
 .calc-display {
   display: flex;
