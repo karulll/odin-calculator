@@ -75,6 +75,10 @@ function populateDisplay(value) {
     return;
   }
 
+  if (value == "0" && number.flag == 1 && number.one == 0 && !isDecimalPresent()) {
+    return;
+  }
+
   if (number.flag == 1) {
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
@@ -210,7 +214,11 @@ function updateCalcTextDisplay(number) {
 }
 
 function updateOperationTextDisplay(operator) {
-  operationDisplay.textContent = number.one + ` ${operator}`;
+  if (!valueIsNumeric(number.one)) {
+    operationDisplay.textContent = 0 + ` ${operator}`;
+  } else {
+    operationDisplay.textContent = number.one + ` ${operator}`;
+  }
 }
 
 function clearCalcTextDisplay() {
