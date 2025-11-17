@@ -75,21 +75,29 @@ function populateDisplay(value) {
     return;
   }
 
-  if (value == "0" && number.flag == 1 && number.one == 0 && !isDecimalPresent()) {
-    return;
-  }
-
   if (number.flag == 1) {
+    if (value == "." && number.one == 0) {
+      value = "0.";
+    }
+    if (value == "0" && number.one == 0 && !isDecimalPresent()) {
+      return;
+    }
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   } else if (number.flag == 2) {
+    if (value == "." && number.two == 0) {
+      value = "0.";
+    }
+    if (value == "0" && number.two == 0 && !isDecimalPresent()) {
+      return;
+    }
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
     updateCalcTextDisplay(number.currentDisplay);
   }
 
-    logValues();
+  logValues();
 }
 
 /* -------------------------------------------------------------- */
@@ -104,7 +112,7 @@ function operate(operator) {
   updateOperationTextDisplay(operator);
 
   number.currentValue = operator;
-  if(number.two == 0) {
+  if (number.two == 0) {
     number.workingOperator = operator;
     clearCalcTextDisplay();
   } else {
@@ -194,7 +202,7 @@ function updateResultValues(res) {
   updateCalcTextDisplay(number.result);
   operationDisplay.textContent =
     number.one + ` ${number.workingOperator} ` + number.two + " =";
-  
+
   number.one = res;
   number.two = 0;
   number.flag = 1;
