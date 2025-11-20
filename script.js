@@ -74,6 +74,7 @@ function populateDisplay(value) {
   if (number.flag == 1) {
     if (value == "." && number.one == 0) {
       value = "0.";
+      setActiveMode(".");
     }
     if (value == "0" && number.one == 0 && !isDecimalPresent()) {
       return;
@@ -84,6 +85,7 @@ function populateDisplay(value) {
   } else if (number.flag == 2) {
     if (value == "." && number.two == 0) {
       value = "0.";
+      setActiveMode(".");
     }
     if (value == "0" && number.two == 0 && !isDecimalPresent()) {
       return;
@@ -108,6 +110,7 @@ function operate(operator) {
   updateOperationTextDisplay(operator);
 
   number.currentValue = operator;
+  setActiveMode(operator);
   if (number.two == 0) {
     number.workingOperator = operator;
     clearCalcTextDisplay();
@@ -173,6 +176,37 @@ function clearButtons(value) {
 
 /* -------------------------------------------------------------- */
 
+function setActiveMode(value) {
+  [btnDivide, btnMultiply, btnSubtract, btnAdd, btnDecimal].forEach((e) =>
+    e.classList.remove("active")
+  );
+
+  switch (value) {
+    case "/":
+      btnDivide.classList.add("active");
+      break;
+    case "*":
+      btnMultiply.classList.add("active");
+      break;
+    case "-":
+      btnSubtract.classList.add("active");
+      break;
+    case "+":
+      btnAdd.classList.add("active");
+      break;
+    case ".":
+      btnDecimal.classList.add("active");
+      break;
+    default:
+      [btnDivide, btnMultiply, btnSubtract, btnAdd, btnDecimal].forEach((e) =>
+        e.classList.remove("active")
+      );
+      break;
+  }
+}
+
+/* -------------------------------------------------------------- */
+
 // helpers
 
 function add() {
@@ -203,13 +237,17 @@ function updateResultValues(res) {
   number.two = 0;
   number.flag = 1;
 
+  setActiveMode(0);
+
   if (number.operatorFlag == "true") {
     number.workingOperator = number.currentValue;
     number.operatorFlag = "false";
     number.flag = 2;
     updateOperationTextDisplay(number.workingOperator);
+    setActiveMode(number.workingOperator);
     clearCalcTextDisplay();
   }
+
   logValues();
 }
 

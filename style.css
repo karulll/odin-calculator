@@ -257,38 +257,38 @@ button:hover {
 
 button:active {
   box-shadow: var(--concave);
-  border-top-color: none;
   transform: translateY(1px);
+  background-color: var(--bg);
 }
 
 .btn-divide.active {
   box-shadow: var(--concave);
-  border-top-color: none;
   transform: translateY(1px);
+  background-color: var(--bg);
 }
 
 .btn-multiply.active {
   box-shadow: var(--concave);
-  border-top-color: none;
   transform: translateY(1px);
+  background-color: var(--bg);
 }
 
 .btn-subtract.active {
   box-shadow: var(--concave);
-  border-top-color: none;
   transform: translateY(1px);
+  background-color: var(--bg);
 }
 
 .btn-add.active {
   box-shadow: var(--concave);
-  border-top-color: none;
   transform: translateY(1px);
+  background-color: var(--bg);
 }
 
 .btn-decimal.active {
   box-shadow: var(--concave);
-  border-top-color: none;
   transform: translateY(1px);
+  background-color: var(--bg);
 }
 
 .footer {
