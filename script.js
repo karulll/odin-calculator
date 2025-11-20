@@ -58,8 +58,24 @@ addListener(btn9);
 
 document.addEventListener("keydown", (event) => {
   const key = event.key;
+
   if ((key >= "0" && key <= "9") || key === ".") {
     populateDisplay(key);
+  }
+
+  if (key === "+" || key === "-" || key === "*" || key === "/") {
+    event.preventDefault();
+    operate(key);
+  }
+  if (key === "Enter" || key === "=") {
+    event.preventDefault();
+    equals();
+  }
+
+  if (key === "Escape") {
+    clearButtons("ac");
+  } else if (key === "Backspace") {
+    clearButtons("ce");
   }
 });
 
@@ -87,12 +103,12 @@ function populateDisplay(value) {
     }
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
-    if (value != "0.") {
-      updateCalcTextDisplay(parseFloat(number.currentDisplay));
-    } else {
+    if (value == "0." || value == ".") {
       updateCalcTextDisplay(number.currentDisplay);
+    } else {
+      updateCalcTextDisplay(parseFloat(number.currentDisplay));
     }
-  } else if (number.flag == 2) {
+  } else if (number.flag == 2 || value == ".") {
     if (value == "." && number.two == 0) {
       value = "0.";
     }
@@ -102,9 +118,9 @@ function populateDisplay(value) {
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
     if (value != "0.") {
-      updateCalcTextDisplay(parseFloat(number.currentDisplay));
-    } else {
       updateCalcTextDisplay(number.currentDisplay);
+    } else {
+      updateCalcTextDisplay(parseFloat(number.currentDisplay));
     }
   }
 
@@ -274,8 +290,12 @@ function updateResultValues(res) {
   logValues();
 }
 
-function updateCalcTextDisplay(number) {
-  calcDisplay.textContent = number;
+function updateCalcTextDisplay(number, decimal) {
+  if (decimal == 1) {
+    calcDisplay.textContent = number + ".";
+  } else {
+    calcDisplay.textContent = number;
+  }
 }
 
 function updateOperationTextDisplay(operator) {
@@ -328,6 +348,4 @@ function logValues() {
   console.log("result: ", number.result);
 }
 
-function dotZeroCheck(value) {
-  
-}
+function dotZeroCheck(value) {}
