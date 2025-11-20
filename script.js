@@ -1,8 +1,6 @@
 const calcDisplay = document.querySelector(".result");
 const operationDisplay = document.querySelector(".operator");
 
-const btnSound = document.querySelector(".btn-sound");
-const btnNegation = document.querySelector(".btn-negation");
 const btnAc = document.querySelector(".btn-ac");
 const btnC = document.querySelector(".btn-c");
 const btnDivide = document.querySelector(".btn-divide");
@@ -41,8 +39,6 @@ let number = {
 
 addClearListener(btnAc);
 addClearListener(btnC);
-addOperatorListener(btnSound);
-addOperatorListener(btnNegation);
 addOperatorListener(btnDivide);
 addOperatorListener(btnMultiply);
 addOperatorListener(btnSubtract);
@@ -256,7 +252,7 @@ function resetCalc() {
   number.operationDisplay = "";
   number.result = 0;
   calcDisplay.textContent = "0";
-  operationDisplay.textContent = "";
+  operationDisplay.textContent = "hello :)";
 }
 
 function logValues() {
