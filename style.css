@@ -41,17 +41,16 @@ img {
 /* custom properties */
 
 :root {
-  --ff: "Inter", sans-serif;
+  --ff: "Nunito", sans-serif;
   --transition: 0.12s ease-in-out;
-  --bg-dark: oklch(0.92 0.005 283);
-  --bg: oklch(0.96 0.005 283);
-  --bg-light: oklch(1 0.005 283);
-  --text: oklch(0.15 0.01 283);
-  --text-muted: oklch(0.4 0.01 283);
-  --highlight: oklch(1 0.01 283);
-  --border: oklch(0.6 0.01 283);
-  --border-muted: oklch(0.7 0.01 283);
-  --primary: oklch(0.4 0.1 283);
+  --bg-dark: oklch(0.92 0.005 245);
+  --bg: oklch(0.96 0.005 245);
+  --bg-light: oklch(1 0.005 245);
+  --text: oklch(0.15 0.01 245);
+  --text-muted: oklch(0.4 0.01 245);
+  --highlight: oklch(1 0.01 245);
+  --border: oklch(0.6 0.01 245);
+  --border-muted: oklch(0.7 0.01 245);
   --shadow-s: inset 0 1px 2px #ffffff30, /* top highlight */ 0 1px 2px #00000030,
     /* dark shadow */ 0 2px 4px #00000015;
   /* soft shadow */
@@ -61,6 +60,9 @@ img {
   --shadow-l: inset 0 1px 2px #ffffff70, /* top highlight */ 0 4px 6px #00000030,
     /* dark shadow */ 0 6px 10px #00000015;
   /* soft shadow */
+  --concave: inset 6px 6px 12px #bebebe,  /* bottom-right */
+    inset -6px -6px 12px #ffffff70; /* top-left */
+  --border-calc: solid 1px var(--bg);
 }
 
 /* center page */
@@ -71,7 +73,6 @@ html {
   align-items: center;
   justify-content: center;
 }
-
 
 /* calculator layout */
 
@@ -84,20 +85,13 @@ html {
   gap: 0.75rem;
   grid-auto-flow: row;
   grid-template-areas:
-    "btn-sound btn-negation btn-ac btn-c"
+    "btn-ac btn-ac btn-c btn-c"
     "btn-7 btn-8 btn-9 btn-divide"
     "btn-4 btn-5 btn-6 btn-multiply"
     "btn-1 btn-2 btn-3 btn-subtract"
     "btn-0 btn-decimal btn-equals btn-add";
 }
 
-.btn-sound {
-  grid-area: btn-sound;
-}
-
-.btn-negation {
-  grid-area: btn-negation;
-}
 
 .btn-ac {
   grid-area: btn-ac;
@@ -186,37 +180,73 @@ body {
 
 main {
   background-color: var(--bg);
-  border-radius: 1rem;
-  padding: 2rem;
+  border-radius: 1.85rem;
+  padding: 1.85rem;
+  box-shadow: var(--shadow-m);
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  border: var(--border-calc);
+  border-top: solid 2px var(--highlight);
 }
+
+.calc-display-container {
+  padding: 0.75rem;
+  background-color: var(--bg-light);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-s);
+  border: var(--border-calc);
+  border-top: solid 2px var(--highlight);
+}
+
 .calc-display {
   display: flex;
   font-family: var(--ff);
   flex-direction: column;
-  font-size: 3rem;
   width: 100%;
   text-align: right;
-  line-height: 2.5ch;
   border-radius: 1rem;
+  background-color: var(--bg);
+  padding: 1.85rem;
+  box-shadow: var(--concave);
+  gap: 0.5rem;
 }
 
-.calc-display > .operator {
-  font-size: 1rem;
+.operator-container {
+  font-size: 1.5rem;
   line-height: 2ch;
 }
 
-.operator-display {
-  font-size: 1rem;
+.result-container {
+  font-size: 3.25rem;
+  line-height: 2ch;
 }
 
 button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   font-family: var(--ff);
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   border-radius: 1rem;
-  background-color: var(--bg);
-  box-shadow: var(--shadow-m);
-  border: none;
-  padding: 0;
+  background-color: var(--bg-light);
+  box-shadow: var(--shadow-s);
+  padding: 1.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border: var(--border-calc);
+  border-top: solid 2px var(--highlight);
+  transition: var(--transition);
 }
 
+button:hover {
+	box-shadow: var(--shadow-l);
+}
+
+button:active {
+	transform: scale(0.95);
+	box-shadow: var(--shadow-l);
+	--bg-light: oklch(0.2 0 268);
+	--text: oklch(0.96 0 268);
+}
