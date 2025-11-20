@@ -285,12 +285,6 @@ button:active {
   background-color: var(--bg);
 }
 
-.btn-decimal.active {
-  box-shadow: var(--concave);
-  transform: translateY(1px);
-  background-color: var(--bg);
-}
-
 .footer {
   display: flex;
   place-items: center;

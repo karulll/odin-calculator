@@ -177,7 +177,7 @@ function clearButtons(value) {
 /* -------------------------------------------------------------- */
 
 function setActiveMode(value) {
-  [btnDivide, btnMultiply, btnSubtract, btnAdd, btnDecimal].forEach((e) =>
+  [btnDivide, btnMultiply, btnSubtract, btnAdd].forEach((e) =>
     e.classList.remove("active")
   );
 
@@ -193,9 +193,6 @@ function setActiveMode(value) {
       break;
     case "+":
       btnAdd.classList.add("active");
-      break;
-    case ".":
-      btnDecimal.classList.add("active");
       break;
     default:
       [btnDivide, btnMultiply, btnSubtract, btnAdd, btnDecimal].forEach((e) =>
