@@ -81,7 +81,7 @@ function populateDisplay(value) {
     }
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
-    updateCalcTextDisplay(number.currentDisplay);
+    updateCalcTextDisplay(parseFloat(number.currentDisplay));
   } else if (number.flag == 2) {
     if (value == "." && number.two == 0) {
       value = "0.";
@@ -92,7 +92,7 @@ function populateDisplay(value) {
     }
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
-    updateCalcTextDisplay(number.currentDisplay);
+    updateCalcTextDisplay(parseFloat(number.currentDisplay));
   }
 
   logValues();
@@ -162,11 +162,24 @@ function clearButtons(value) {
       resetCalc();
       break;
     case "ce":
-      clearCalcTextDisplay();
       if (number.flag == 1) {
-        number.one = 0;
+        const numberStr = String(number.one);
+        number.one = numberStr.substring(0, numberStr.length - 1);
+        number.currentDisplay = number.one;
+        if (number.currentDisplay == "") {
+          number.currentDisplay = "0";
+        }
+        number.two = parseFloat(number.currentDisplay);
+        updateCalcTextDisplay(number.currentDisplay);
       } else {
-        number.two = 0;
+        const numberStr = String(number.two);
+        number.two = numberStr.substring(0, numberStr.length - 1);
+        number.currentDisplay = number.two;
+        if (number.currentDisplay == "") {
+          number.currentDisplay = "0";
+        }
+        number.two = parseFloat(number.currentDisplay);
+        updateCalcTextDisplay(number.currentDisplay);
       }
       break;
   }
