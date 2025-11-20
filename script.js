@@ -95,12 +95,14 @@ function populateDisplay(value) {
   }
 
   if (number.flag == 1) {
+
     if (value == "." && number.one == 0) {
       value = "0.";
     }
     if (value == "0" && number.one == 0 && !isDecimalPresent()) {
       return;
     }
+
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
     if (value == "0." || value == ".") {
@@ -108,20 +110,24 @@ function populateDisplay(value) {
     } else {
       updateCalcTextDisplay(parseFloat(number.currentDisplay));
     }
+
   } else if (number.flag == 2 || value == ".") {
+
     if (value == "." && number.two == 0) {
       value = "0.";
     }
     if (value == "0" && number.two == 0 && !isDecimalPresent()) {
       return;
     }
+    
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
-    if (value != "0.") {
+    if (value == "0." || value == ".") {
       updateCalcTextDisplay(number.currentDisplay);
     } else {
       updateCalcTextDisplay(parseFloat(number.currentDisplay));
     }
+
   }
 
   logValues();
