@@ -339,7 +339,10 @@ function resetCalc() {
   number.operationDisplay = "";
   number.result = 0;
   calcDisplay.textContent = "0";
-  operationDisplay.textContent = "hello :)";
+  // winston hows it hanging
+  const greetings = ["hey :)", "hi :)", "hello :)"];
+  operationDisplay.textContent = greetings[Math.floor(Math.random() * greetings.length)];
+  setActiveMode(0);
 }
 
 function logValues() {
