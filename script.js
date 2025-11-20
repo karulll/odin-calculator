@@ -56,6 +56,13 @@ addListener(btn7);
 addListener(btn8);
 addListener(btn9);
 
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+  if ((key >= "0" && key <= "9") || key === ".") {
+    populateDisplay(key);
+  }
+});
+
 /* -------------------------------------------------------------- */
 
 function addListener(element) {
@@ -64,8 +71,8 @@ function addListener(element) {
   );
 }
 
-// populate html display and number objects based on current flag
-// if theres already a decimal present, dont store value
+// abomination
+
 function populateDisplay(value) {
   if (value == "." && isDecimalPresent()) {
     return;
@@ -74,25 +81,31 @@ function populateDisplay(value) {
   if (number.flag == 1) {
     if (value == "." && number.one == 0) {
       value = "0.";
-      setActiveMode(".");
     }
     if (value == "0" && number.one == 0 && !isDecimalPresent()) {
       return;
     }
     number.currentDisplay += value;
     number.one = parseFloat(number.currentDisplay);
-    updateCalcTextDisplay(parseFloat(number.currentDisplay));
+    if (value != "0.") {
+      updateCalcTextDisplay(parseFloat(number.currentDisplay));
+    } else {
+      updateCalcTextDisplay(number.currentDisplay);
+    }
   } else if (number.flag == 2) {
     if (value == "." && number.two == 0) {
       value = "0.";
-      setActiveMode(".");
     }
     if (value == "0" && number.two == 0 && !isDecimalPresent()) {
       return;
     }
     number.currentDisplay += value;
     number.two = parseFloat(number.currentDisplay);
-    updateCalcTextDisplay(parseFloat(number.currentDisplay));
+    if (value != "0.") {
+      updateCalcTextDisplay(parseFloat(number.currentDisplay));
+    } else {
+      updateCalcTextDisplay(number.currentDisplay);
+    }
   }
 
   logValues();
@@ -313,4 +326,8 @@ function logValues() {
   console.log("currentDisplay: ", number.currentDisplay);
   console.log("operationDisplay: ", number.operationDisplay);
   console.log("result: ", number.result);
+}
+
+function dotZeroCheck(value) {
+  
 }
