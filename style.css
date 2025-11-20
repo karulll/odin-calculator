@@ -51,21 +51,24 @@ img {
   --highlight: oklch(1 0.01 245);
   --border: oklch(0.6 0.01 245);
   --border-muted: oklch(0.7 0.01 245);
-  --shadow-s: inset 0 1px 2px #ffffff30, /* top highlight */ 0 1px 2px #00000030,
+  --shadow-s: inset 0 1px 2px #ffffff30, 0 1px 2px #00000030,
     /* dark shadow */ 0 2px 4px #00000015;
   /* soft shadow */
-  --shadow-m: inset 0 1px 2px #ffffff50, /* top highlight */ 0 2px 4px #00000030,
-    /* dark shadow */ 0 4px 8px #00000015;
+  --shadow-m: inset 0 1px 2px #ffffff50, 0 2px 4px #00000030,
+    0 4px 8px #00000015;
+
+  --shadow-l: inset 0 1px 2px #ffffff70, 0 4px 6px #00000030,
+    0 6px 10px #00000015;
   /* soft shadow */
-  --shadow-l: inset 0 1px 2px #ffffff70, /* top highlight */ 0 4px 6px #00000030,
-    /* dark shadow */ 0 6px 10px #00000015;
-  /* soft shadow */
-  --concave: inset 6px 6px 12px #bebebe,  /* bottom-right */
-    inset -6px -6px 12px #ffffff70; /* top-left */
+  --concave: inset 6px 6px 12px #bebebe, inset -6px -6px 12px #ffffff70;
   --border-calc: solid 1px var(--bg);
 }
 
 /* center page */
+
+* {
+  box-sizing: border-box;
+}
 
 html {
   min-height: 100%;
@@ -91,7 +94,6 @@ html {
     "btn-1 btn-2 btn-3 btn-subtract"
     "btn-0 btn-decimal btn-equals btn-add";
 }
-
 
 .btn-ac {
   grid-area: btn-ac;
@@ -185,7 +187,7 @@ main {
   box-shadow: var(--shadow-m);
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1rem;
   border: var(--border-calc);
   border-top: solid 2px var(--highlight);
 }
@@ -215,11 +217,13 @@ main {
 .operator-container {
   font-size: 1.5rem;
   line-height: 2ch;
+  font-weight: 300;
 }
 
 .result-container {
   font-size: 3.25rem;
   line-height: 2ch;
+  font-weight: 600;
 }
 
 button {
@@ -238,15 +242,32 @@ button {
   border: var(--border-calc);
   border-top: solid 2px var(--highlight);
   transition: var(--transition);
+  font-weight: 300;
 }
 
 button:hover {
-	box-shadow: var(--shadow-l);
+  box-shadow: var(--shadow-m);
+  background-color: var(--bg);
 }
 
 button:active {
-	transform: scale(0.95);
-	box-shadow: var(--shadow-l);
-	--bg-light: oklch(0.2 0 268);
-	--text: oklch(0.96 0 268);
+  transform: scale(0.95);
+}
+
+.footer {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  font-family: var(--ff);
+}
+
+.github-mark {
+  max-width: 2rem;
+  transition: var(--transition);
+  margin-left: 0.5rem;
+}
+
+.github-mark:hover {
+  transform: scale(1.1);
 }
