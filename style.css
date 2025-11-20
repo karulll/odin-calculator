@@ -227,7 +227,7 @@ main {
   font-size: 3.25rem;
   line-height: 2ch;
   font-weight: 600;
-  word-break: break-all; /* This is the key property */
+  word-break: break-all;
   white-space: normal;
 }
 
@@ -257,37 +257,37 @@ button:hover {
 
 button:active {
   box-shadow: var(--concave);
-  border-top-color: transparent;
+  border-top-color: none;
   transform: translateY(1px);
 }
 
 .btn-divide.active {
   box-shadow: var(--concave);
-  border-top-color: transparent;
+  border-top-color: none;
   transform: translateY(1px);
 }
 
 .btn-multiply.active {
   box-shadow: var(--concave);
-  border-top-color: transparent;
+  border-top-color: none;
   transform: translateY(1px);
 }
 
 .btn-subtract.active {
   box-shadow: var(--concave);
-  border-top-color: transparent;
+  border-top-color: none;
   transform: translateY(1px);
 }
 
 .btn-add.active {
   box-shadow: var(--concave);
-  border-top-color: transparent;
+  border-top-color: none;
   transform: translateY(1px);
 }
 
 .btn-decimal.active {
   box-shadow: var(--concave);
-  border-top-color: transparent;
+  border-top-color: none;
   transform: translateY(1px);
 }
 
