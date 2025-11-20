@@ -42,7 +42,7 @@ img {
 
 :root {
   --ff: "Nunito", sans-serif;
-  --transition: 0.12s ease-in-out;
+  --transition: 0.05s ease-in-out;
   --bg-dark: oklch(0.92 0.005 245);
   --bg: oklch(0.96 0.005 245);
   --bg-light: oklch(1 0.005 245);
@@ -178,6 +178,7 @@ html {
 
 body {
   background-color: var(--bg-dark);
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
 }
 
 main {
@@ -212,6 +213,8 @@ main {
   padding: 1.85rem;
   box-shadow: var(--concave);
   gap: 0.5rem;
+  overflow-y: auto;
+  width: 496.4px;
 }
 
 .operator-container {
@@ -224,6 +227,8 @@ main {
   font-size: 3.25rem;
   line-height: 2ch;
   font-weight: 600;
+  word-break: break-all; /* This is the key property */
+  white-space: normal;
 }
 
 button {
@@ -240,8 +245,8 @@ button {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   border: var(--border-calc);
-  border-top: solid 2px var(--highlight);
   transition: var(--transition);
+  border-top: solid 2px var(--highlight);
   font-weight: 300;
 }
 
@@ -251,7 +256,39 @@ button:hover {
 }
 
 button:active {
-  transform: scale(0.95);
+  box-shadow: var(--concave);
+  border-top-color: transparent;
+  transform: translateY(1px);
+}
+
+.btn-divide.active {
+  box-shadow: var(--concave);
+  border-top-color: transparent;
+  transform: translateY(1px);
+}
+
+.btn-multiply.active {
+  box-shadow: var(--concave);
+  border-top-color: transparent;
+  transform: translateY(1px);
+}
+
+.btn-subtract.active {
+  box-shadow: var(--concave);
+  border-top-color: transparent;
+  transform: translateY(1px);
+}
+
+.btn-add.active {
+  box-shadow: var(--concave);
+  border-top-color: transparent;
+  transform: translateY(1px);
+}
+
+.btn-decimal.active {
+  box-shadow: var(--concave);
+  border-top-color: transparent;
+  transform: translateY(1px);
 }
 
 .footer {
